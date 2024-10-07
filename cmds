@@ -1,0 +1,3 @@
+for f in ssh_*; do docker  run -d -p 22 -v $f:/data local:ssh_gcc ; done
+IFS=$'\n' HOSTS=( $(docker ps --format='{{.Ports}}' | sed -r 's/0\.0\.0\.0\:(.*)->.*$/\1/g') )
+for h in ${HOSTS[@]}; do SSH_ASKPASS=askpass SSH_ASKPASS_REQUIRE=force ssh localhost -p $h $cmd; done
